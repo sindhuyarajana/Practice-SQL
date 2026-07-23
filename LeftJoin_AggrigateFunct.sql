@@ -18,3 +18,10 @@ FROM employee
 LEFT JOIN department
 ON employee.Department_id = department.Department_id
 GROUP BY department.Department_name;
+
+SELECT department.Department_name,
+       MIN(employee.Salary) AS Lowest_salary
+FROM employee
+LEFT JOIN department
+ON employee.Department_id = department.Department_id
+GROUP BY department.Department_name;
