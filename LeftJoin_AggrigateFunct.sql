@@ -25,3 +25,10 @@ FROM employee
 LEFT JOIN department
 ON employee.Department_id = department.Department_id
 GROUP BY department.Department_name;
+
+SELECT department.Department_name,
+       SUM(employee.Salary) AS Total_salary
+FROM employee
+LEFT JOIN department
+ON employee.Department_id = department.Department_id
+GROUP BY department.Department_name;
