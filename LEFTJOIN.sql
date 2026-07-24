@@ -48,4 +48,15 @@ LEFT JOIN department
 ON employee.Department_id = department.Department_id
 WHERE department.Department_name IS NULL;
 
+SELECT employee.EmpID,
+       employee.Name,
+       employee.Country,
+       employee.Age,
+       employee.Salary,
+       department.Department_name,
+       department.Department_head,
+       department.Location
+FROM employee
+LEFT JOIN department
+ON employee.Department_id = department.Department_id;
 
