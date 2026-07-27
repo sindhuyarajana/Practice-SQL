@@ -66,3 +66,16 @@ SELECT employee.name,
 FROM employee
 LEFT JOIN department
 ON employee.Department_id = department.Department_id;
+
+SELECT employee.Name,
+       employee.Salary,
+       department.Department_name
+FROM Employee
+LEFT JOIN Department
+ON employee.Department_id = department.Department_id
+WHERE employee.Salary >
+(
+    SELECT AVG(e2.Salary)
+    FROM Employee e2
+    WHERE e2.Department_id = employee.Department_id
+);
