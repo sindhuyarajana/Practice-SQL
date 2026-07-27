@@ -60,3 +60,9 @@ FROM employee
 LEFT JOIN department
 ON employee.Department_id = department.Department_id;
 
+
+SELECT employee.name,
+       IFNULL(department_name, "No Department") AS Department
+FROM employee
+LEFT JOIN department
+ON employee.Department_id = department.Department_id;
