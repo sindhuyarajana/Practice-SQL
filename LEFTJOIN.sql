@@ -79,3 +79,10 @@ WHERE employee.Salary >
     FROM Employee e2
     WHERE e2.Department_id = employee.Department_id
 );
+
+SELECT department.Department_name,
+	   COUNT(employee.Name) AS Number_of_Employees
+FROM department
+LEFT JOIN employee
+ON employee.Department_id = department.Department_id
+GROUP BY department.Department_name;
