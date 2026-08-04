@@ -16,7 +16,7 @@ INSERT INTO Employee (EmpID, Name, Country, Age, Salary, Department_id) VALUES
 (3, 'Ethan', 'Canada', 24, 40000, 103),
 (4, 'Noah', 'Germany', 21, 35000, 104),
 (5, 'Mason', 'Spain', 22, 25000, 101),
-(6, 'Sophia', 'India', 26, 38000, 105),
+(6, 'Sophia', 'India', 25, 38000, 105),
 (7, 'James', 'Brazil', 29, 47000, NULL),
 (8, 'Emma', 'Japan', 24, 32000, 106);
 
@@ -36,7 +36,7 @@ INSERT INTO Department (Department_id,Department_name, Department_head, Location
 (108, 'Support', 'Rahul', 'Mumbai');
 
 SELECT employee.Name AS Employee_Name,
-       department.Department_name
+       department.Department_name 
 FROM employee
 LEFT JOIN department
 ON employee.Department_id = department.Department_id;
@@ -62,7 +62,7 @@ ON employee.Department_id = department.Department_id;
 
 
 SELECT employee.name,
-       IFNULL(department_name, "No Department") AS Department
+       COALESCE(department_name, "No Department") AS Department
 FROM employee
 LEFT JOIN department
 ON employee.Department_id = department.Department_id;
@@ -93,3 +93,14 @@ FROM department
 LEFT JOIN employee
 ON employee.Department_id = department.Department_id
 GROUP BY department.Department_name;
+
+SELECT employee.Name,
+	   employee.Country,
+       employee.Salary,
+       department.Department_name,
+       department.Department_head,
+       department.Location
+FROM employee
+LEFT JOIN department 
+ON employee.Department_id =department.Department_id
+ORDER BY employee.Salary DESC, employee.name ASC;
