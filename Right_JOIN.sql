@@ -35,3 +35,10 @@ SELECT *
 FROM employee
 RIGHT JOIN department
 ON employee.Department_ID = department.Department_ID;
+
+SELECT department.Department_name,
+       employee.Name
+FROM employee
+RIGHT JOIN department
+ON employee.Department_id = department.Department_id;
+
