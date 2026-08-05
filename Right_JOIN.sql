@@ -48,3 +48,9 @@ SELECT suppliers.supplier_name,
 FROM products
 RIGHT JOIN suppliers
 ON products.supplier_id = suppliers.supplier_id;
+
+SELECT suppliers.supplier_name,
+       products.product_name
+FROM products
+RIGHT JOIN suppliers
+ON products.supplier_id = suppliers.supplier_id;
