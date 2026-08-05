@@ -28,3 +28,9 @@ SELECT products.Product_Name,
 FROM products
 RIGHT JOIN suppliers
 ON products.Supplier_ID = suppliers.Supplier_ID;
+
+SELECT Suppliers.Supplier_Name,
+       Products.Product_Name
+FROM Products
+RIGHT JOIN Suppliers
+ON Products.Supplier_ID = suppliers.Supplier_ID;
