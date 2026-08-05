@@ -2,43 +2,29 @@ CREATE DATABASE right_join;
 
 USE right_join;
 
-CREATE TABLE employee(employee_ID INT PRIMARY KEY,
-                      Name VARCHAR(50),
-                      Department_ID INT,
-                      Salary INT);
-INSERT INTO employee(employee_ID, Name, Department_ID, Salary) VALUES
-(1, "Oliver", 101, 50000),
-(2, 'Liam', 102, 60000),
-(3, 'Ethan', 101, 55000),
-(4, 'Noah', 103, 45000),
-(5, 'Sophia', 104, 70000),
-(6, "James", NULL, 48000);
+CREATE TABLE Products(Product_ID INT PRIMARY KEY,
+                      Product_Name VARCHAR(50),
+                      Supplier_ID INT,
+                      Price INT);
+INSERT INTO Products(Product_ID , Product_Name, Supplier_ID, Price) VALUES
+(1, "Laptop", 201, 60000),
+(2, 'Mouse', 202, 800),
+(3, "Keyboard", 202, 1500),
+(4, 'Monitor', 203, 12000),
+(5, "Webcam", NULL, 3000);
 
-CREATE TABLE Department(Department_ID INT,
-                        Department_Name VARCHAR(50),
-                        Department_Head VARCHAR(50),
-                        Location VARCHAR(50));
-INSERT INTO department(Department_ID, Department_Name, Department_Head, Location) VALUES
-(101, 'IT', 'Robert', 'Bangalore'),
-(102, 'HR', 'Sarah', 'Delhi'),
-(103, 'Sales', 'David', 'Kolkata'),
-(104, 'Finance', 'Michael', 'Mumbai'),
-(105, 'Marketing', 'Emma', 'Pune'),
-(106, 'Research', 'John', 'Chennai');
+CREATE TABLE Suppliers(Supplier_ID INT PRIMARY KEY, Supplier_name VARCHAR(50), City VARCHAR(50));
 
-DROP TABLE department;
+INSERT INTO Suppliers(Supplier_ID, Supplier_Name, City) VALUES
+(201, 'Dell', 'Chennai'),
+(202, 'Logitech', 'Bangalore'),
+(203, 'Samsung', 'Delhi'),
+(204, 'HP', 'Mumbai'),
+(205, 'Lenovo', 'Pune');
 
-SELECT * FROM employee;
-SELECT * FROM department;
-
-SELECT *
-FROM employee
-RIGHT JOIN department
-ON employee.Department_ID = department.Department_ID;
-
-SELECT department.Department_name,
-       employee.Name
-FROM employee
-RIGHT JOIN department
-ON employee.Department_id = department.Department_id;
-
+SELECT products.Product_Name,
+       suppliers.Supplier_Name,
+       suppliers.City
+FROM products
+RIGHT JOIN suppliers
+ON products.Supplier_ID = suppliers.Supplier_ID;
