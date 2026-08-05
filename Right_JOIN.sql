@@ -34,3 +34,10 @@ SELECT Suppliers.Supplier_Name,
 FROM Products
 RIGHT JOIN Suppliers
 ON Products.Supplier_ID = suppliers.Supplier_ID;
+
+SELECT suppliers.supplier_name,
+		products.product_name,
+        products.price
+FROM products
+RIGHT JOIN suppliers
+ON products.supplier_id = suppliers.supplier_id;
