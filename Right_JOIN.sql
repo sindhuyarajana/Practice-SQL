@@ -61,3 +61,65 @@ FROM products
 RIGHT JOIN suppliers
 ON products.supplier_id = suppliers.supplier_id
 WHERE products.product_name IS NULL;
+
+#run from this
+
+SELECT suppliers.supplier_name,  
+		products.product_name
+FROM products
+RIGHT JOIN suppliers
+ON products.supplier_id = suppliers.supplier_id
+WHERE products.price > 5000;
+
+SELECT suppliers.supplier_name,
+       COUNT(products.product_name) AS Product_Count
+FROM products
+RIGHT JOIN suppliers
+ON products.supplier_id = suppliers.supplier_id
+GROUP BY suppliers.supplier_name;
+
+SELECT suppliers.supplier_name,
+        MAX(products.price) AS Highest_Price
+FROM products
+RIGHT JOIN suppliers
+ON products.supplier_id = suppliers.supplier_id
+GROUP BY suppliers.supplier_name;
+
+SELECT suppliers.supplier_name,
+        AVG(products.price) AS Average_Price
+FROM products
+RIGHT JOIN suppliers
+ON products.supplier_id = suppliers.supplier_id
+GROUP BY suppliers.supplier_name;
+
+SELECT suppliers.supplier_name,
+	   suppliers.city,
+       COUNT(products.product_name) AS product_count,
+       AVG(products.price) AS average_price
+FROM products
+RIGHT JOIN suppliers
+ON products.supplier_id = suppliers.supplier_id
+GROUP BY suppliers.supplier_name, suppliers.city;
+
+SELECT suppliers.Supplier_name,
+       products.Product_Name
+FROM products
+RIGHT JOIN suppliers
+ON products.Supplier_ID = suppliers.Supplier_ID
+WHERE Product_Name IS NOT NULL;
+
+SELECT suppliers.Supplier_name,
+       COUNT(products.product_name) AS Product_Count
+FROM products
+RIGHT JOIN suppliers
+ON products.Supplier_ID = suppliers.Supplier_ID
+GROUP BY suppliers.Supplier_name
+HAVING COUNT(products.Product_Name) > 1;
+
+SELECT suppliers.Supplier_name,
+       AVG(products.price) AS Average_Price
+FROM products
+RIGHT JOIN suppliers
+ON products.Supplier_ID = suppliers.Supplier_ID
+GROUP BY suppliers.Supplier_name
+HAVING AVG(products.Price) > 5000;
