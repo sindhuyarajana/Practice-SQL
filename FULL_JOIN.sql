@@ -89,3 +89,11 @@ FROM book
 LEFT JOIN author
 ON book.author_id = author.author_id
 WHERE author.author_id IS NULL;
+
+SELECT a.AUTHOR_NAME,
+b.BOOK_NAME,
+b.ISSUED_ON,
+b.DUE_DATE
+FROM author a
+LEFT JOIN book b
+ON a.AUTHOR_ID = b.AUTHOR_ID;
