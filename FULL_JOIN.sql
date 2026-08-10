@@ -65,3 +65,15 @@ SELECT b.BOOK_ID,
 FROM Book b
 RIGHT JOIN Author a
     ON b.AUTHOR_ID = a.AUTHOR_ID;
+    
+SELECT author.author_name,
+       book.book_name
+FROM book
+LEFT JOIN author
+ON book.author_id = author.author_id
+UNION 
+SELECT author.author_name,
+       book.book_name
+FROM book
+RIGHT JOIN author
+ON book.author_id = author.author_id;
