@@ -37,3 +37,17 @@ ON book.author_id = author.author_id
 WHERE author.author_name IS NOT NULL ;
 
 describe book;
+
+SELECT b.BOOK_NAME,
+       a.AUTHOR_NAME
+FROM Book b
+LEFT JOIN Author a
+    ON b.AUTHOR_ID = a.AUTHOR_ID
+
+UNION
+
+SELECT b.BOOK_NAME,
+       a.AUTHOR_NAME
+FROM Book b
+RIGHT JOIN Author a
+    ON b.AUTHOR_ID = a.AUTHOR_ID;
