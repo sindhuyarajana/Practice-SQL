@@ -77,3 +77,9 @@ SELECT author.author_name,
 FROM book
 RIGHT JOIN author
 ON book.author_id = author.author_id;
+
+SELECT a.AUTHOR_NAME
+FROM Author a
+LEFT JOIN Book b
+    ON a.AUTHOR_ID = b.AUTHOR_ID
+WHERE b.BOOK_ID IS NULL;
