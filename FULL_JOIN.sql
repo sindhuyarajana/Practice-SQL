@@ -97,3 +97,18 @@ b.DUE_DATE
 FROM author a
 LEFT JOIN book b
 ON a.AUTHOR_ID = b.AUTHOR_ID;
+
+SELECT b.book_name,
+       a.author_name,
+       b.author_id
+FROM book b
+LEFT JOIN author a
+ON b.author_id = a.AUTHOR_ID
+UNION
+SELECT b.book_name,
+       a.author_name,
+       b.author_id
+FROM book b
+RIGHT JOIN author a
+ON b.author_id = a.AUTHOR_ID;
+
