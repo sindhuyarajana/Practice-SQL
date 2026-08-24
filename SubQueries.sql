@@ -51,3 +51,11 @@ WHERE salary = (
     SELECT MAX(salary) 
     FROM employees
 );
+#Employees from the same department as Oliver
+SELECT emp_name, department_id
+FROM employees
+WHERE department_id = (
+    SELECT department_id
+    FROM employees
+    WHERE emp_name = 'Oliver'
+);
