@@ -77,3 +77,12 @@ HAVING AVG(salary) > (
     SELECT AVG(salary)
     FROM employees
 );
+
+#Employees who ear more than every employee in department 101
+SELECT emp_name, salary
+FROM employees
+WHERE salary > ALL(
+    SELECT salary 
+    FROM employees
+    WHERE department_id = 101
+);
