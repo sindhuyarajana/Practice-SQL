@@ -68,3 +68,12 @@ WHERE salary > (
     FROM employees e2
     WHERE e2.department_id = e1.department_id
 );
+
+#Departments with above-company-average salaries
+SELECT department_id, AVG(salary) AS average_salary
+FROM employees
+GROUP BY department_id
+HAVING AVG(salary) > (
+    SELECT AVG(salary)
+    FROM employees
+);
