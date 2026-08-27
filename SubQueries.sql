@@ -59,3 +59,12 @@ WHERE department_id = (
     FROM employees
     WHERE emp_name = 'Oliver'
 );
+
+#Employees earning more than their departments
+SELECT emp_name, department_id, salary
+FROM employees e1
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees e2
+    WHERE e2.department_id = e1.department_id
+);
