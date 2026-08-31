@@ -164,3 +164,13 @@ WHERE department_id NOT IN(
     FROM departments
     WHERE department_name = 'HR'
 );
+
+#All departments that have at least one employee earning more than 40,000
+SELECT d.department_id, d.department_name
+FROM departments d
+WHERE EXISTS (
+    SELECT 1
+    FROM employees e
+    WHERE e.salary > 40000
+      AND e.department_id = d.department_id
+);
