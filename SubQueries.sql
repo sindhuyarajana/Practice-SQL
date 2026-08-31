@@ -174,3 +174,11 @@ WHERE EXISTS (
     WHERE e.salary > 40000
       AND e.department_id = d.department_id
 );
+
+#Employees whose salary is less than the average salary of their own department
+SELECT emp_name, department_id, salary
+FROM employees e1
+WHERE salary < (
+    SELECT AVG(e2.salary)
+    FROM employees e2
+    WHERE e2.department_id = e1.department_id);
