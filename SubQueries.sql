@@ -137,3 +137,12 @@ WHERE e.salary > (
     FROM employees e2
     WHERE e2.department_id = d.department_id
 );
+
+#Second highest salary
+SELECT emp_name, salary
+FROM employees
+WHERE salary = (
+    SELECT salary
+    FROM employees
+    ORDER BY salary DESC LIMIT 1 OFFSET 1
+);
