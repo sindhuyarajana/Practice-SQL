@@ -86,3 +86,12 @@ WHERE salary > ALL(
     FROM employees
     WHERE department_id = 101
 );
+
+#Employees working in departments located in Mumbai
+SELECT emp_name, department_id
+FROM employees
+WHERE department_id  IN (
+    SELECT department_id 
+    FROM departments
+    WHERE location = 'Mumbai'
+);
