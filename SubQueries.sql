@@ -146,3 +146,12 @@ WHERE salary = (
     FROM employees
     ORDER BY salary DESC LIMIT 1 OFFSET 1
 );
+
+#Employees who work in a department location in Toronto
+SELECT emp_name, department_id
+FROM employees
+WHERE department_id IN(
+    SELECT department_id
+    FROM departments
+    WHERE location = 'Toronto'
+);
