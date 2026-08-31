@@ -104,3 +104,36 @@ WHERE EXISTS(
     FROM employees e
     WHERE e.department_id = d.department_id
 );
+
+SELECT e.emp_name,
+       d.department_name,
+       e.salary,
+       AVG(salary) AS average_salary
+FROM employees e
+LEFT JOIN departments d
+ON e.department_id = d.department_id
+WHERE salary > (
+SELECT AVG(salary) 
+FROM departments
+);
+
+#Including average_salary
+SELECT e.emp_name,
+       d.department_name,
+       e.salary,
+
+       (
+           SELECT AVG( e2.salary )
+           FROM employees e2
+           WHERE e2.department_id = d.department_id
+       ) AS average_salary
+
+FROM employees e
+LEFT JOIN departments d
+ON e.department_id = d.department_id
+
+WHERE e.salary > (
+    SELECT AVG( e2.salary)
+    FROM employees e2
+    WHERE e2.department_id = d.department_id
+);
