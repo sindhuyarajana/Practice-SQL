@@ -155,3 +155,12 @@ WHERE department_id IN(
     FROM departments
     WHERE location = 'Toronto'
 );
+
+#All employees who do not work in HR department
+SELECT emp_name, department_id
+FROM employees
+WHERE department_id NOT IN(
+    SELECT department_id
+    FROM departments
+    WHERE department_name = 'HR'
+);
