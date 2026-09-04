@@ -70,3 +70,12 @@ SELECT student_name,
            ELSE 'Fail'
 		END AS label_marks
 FROM students;
+
+SELECT  employee_name,
+		salary,
+        CASE 
+			WHEN salary >= 100000 THEN 'High'
+            WHEN salary >= 50000 THEN 'Medium'
+            ELSE 'Low'
+		END AS salary_level
+FROM employees;

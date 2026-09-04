@@ -13,10 +13,7 @@ INSERT INTO Employee (EmpID, Name, Country, Age, Salary, Department_id) VALUES
 (2, 'Liam', 'Australia', 21, 45000, 102),
 (3, 'Ethan', 'Canada', 24, 40000, 103),
 (4, 'Noah', 'Germany', 21, 35000, 104),
-(5, 'Mason', 'Spain', 22, 25000, 101),
-(6,'Sophia','India',26,38000,105),
-(7,'James','Brazil',29,47000,NULL),
-(8,'Emma','Japan',24,32000,106);
+(5, 'Mason', 'Spain', 22, 25000, 101);
 
 CREATE TABLE Department(
 Department_id INT,
