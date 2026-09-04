@@ -182,3 +182,34 @@ WHERE salary < (
     SELECT AVG(e2.salary)
     FROM employees e2
     WHERE e2.department_id = e1.department_id);
+    
+SELECT emp_name, department_id, salary
+FROM employees e1
+WHERE salary = (
+    SELECT MAX(e2.salary)
+    FROM employees e2
+    WHERE e2.department_id = e1.department_id);
+    
+SELECT emp_name, salary
+FROM employees e1
+WHERE salary > (
+    SELECT MAX(e2.salary)
+    FROM employees e2
+    WHERE e2.department_id = 101
+);
+
+SELECT  emp_name, department_id
+FROM employees
+WHERE department_id IN (
+    SELECT department_id
+    FROM departments
+    WHERE location IN ('Mumbai', 'Toronto')
+);
+
+SELECT emp_name, department_id 
+FROM employees e1
+WHERE EXISTS(
+    SELECT 1
+    FROM employees e2
+    WHERE 
+);
