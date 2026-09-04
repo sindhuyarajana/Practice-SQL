@@ -117,3 +117,14 @@ SELECT amount,
         ELSE 'No Discount'
 	END AS Discount
 FROM orders;
+
+#Required marks and attendance
+SELECT marks,
+	   attendance_percent,
+       CASE 
+			WHEN marks < 40 OR attendance_percent < 75.00 THEN 'Needs Attention'
+            ELSE 'Eligible'
+		END AS Requirements
+FROM students;
+
+	
