@@ -99,3 +99,21 @@ SELECT
     SUM(CASE WHEN status = 'Cancelled' THEN 1 ELSE 0 END) AS cancelled_orders,
     COUNT(*) AS total_orders
 FROM orders;
+
+#labeling departments
+SELECT department,
+	CASE 
+		WHEN department IN ('IT','Data', 'Engineering') THEN 'Technical'
+        WHEN department IN ('Sales', 'Marketing', 'Finance') THEN 'Business'
+        ELSE 'Other'
+	END AS Label_department
+FROM employees;
+
+#applying discounts
+SELECT amount,
+	CASE 
+		WHEN amount >= 5000 THEN '20% Discount'
+        WHEN amount >= 2000 THEN '10% Discount'
+        ELSE 'No Discount'
+	END AS Discount
+FROM orders;
