@@ -127,4 +127,15 @@ SELECT marks,
 		END AS Requirements
 FROM students;
 
+#counting bonus amount
+SELECT 
+    employee_name,
+    department,
+    salary,
+    CASE 
+        WHEN department = 'Sales' THEN salary * 0.15
+        WHEN department = 'IT' THEN salary * 0.10
+        ELSE salary * 0.05
+    END AS bonus_amount
+FROM employees;
 	
