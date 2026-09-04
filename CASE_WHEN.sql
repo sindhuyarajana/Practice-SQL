@@ -71,6 +71,7 @@ SELECT student_name,
 		END AS label_marks
 FROM students;
 
+#creating salary_level
 SELECT  employee_name,
 		salary,
         CASE 
@@ -79,3 +80,14 @@ SELECT  employee_name,
             ELSE 'Low'
 		END AS salary_level
 FROM employees;
+
+#displaying order_status_label
+SELECT customer_id,
+		status,
+        CASE 
+			WHEN status = 'Delivered' THEN 'Completed'
+            WHEN status = 'Pending' OR status = 'Shipped' THEN 'In Progress'
+            WHEN status = 'Cancelled' THEN 'Cancelled'
+            ELSE 'Other'
+		END AS order_status_label
+FROM orders;
