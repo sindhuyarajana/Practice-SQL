@@ -91,3 +91,11 @@ SELECT customer_id,
             ELSE 'Other'
 		END AS order_status_label
 FROM orders;
+
+#counting total number of orders
+SELECT
+    SUM(CASE WHEN status = 'Delivered' THEN 1 ELSE 0 END) AS delivered_orders,
+    SUM(CASE WHEN status = 'Pending' THEN 1 ELSE 0 END) AS pending_orders,
+    SUM(CASE WHEN status = 'Cancelled' THEN 1 ELSE 0 END) AS cancelled_orders,
+    COUNT(*) AS total_orders
+FROM orders;
