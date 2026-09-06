@@ -150,3 +150,12 @@ ORDER BY
         WHEN status = 'Delivered' THEN 3
         WHEN status = 'Cancelled' THEN 4
 	END;
+#total delivered dales including total sales    
+SELECT
+	SUM(CASE
+        WHEN status = 'Delivered' THEN amount
+        ELSE 0
+    END) AS delivered_sales,
+
+    SUM(amount) AS total_sales
+FROM orders;
