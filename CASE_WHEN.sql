@@ -138,4 +138,15 @@ SELECT
         ELSE salary * 0.05
     END AS bonus_amount
 FROM employees;
-	
+
+#Sorting Order status
+SELECT order_id,
+		status
+FROM orders
+ORDER BY 
+	CASE 
+		WHEN status = 'Pending' THEN 1
+        WHEN status = 'Shipped' THEN 2
+        WHEN status = 'Delivered' THEN 3
+        WHEN status = 'Cancelled' THEN 4
+	END;
