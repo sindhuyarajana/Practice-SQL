@@ -159,3 +159,41 @@ SELECT
 
     SUM(amount) AS total_sales
 FROM orders;
+
+SELECT employee_name,
+	   department,
+       salary,
+CASE 
+	WHEN salary >= 100000 THEN "High"
+    WHEN salary >= 70000 THEN "Medium"
+    ELSE "Low"
+END AS Salary_Level
+FROM employees;
+
+SELECT employee_name,
+       department,
+       salary,
+CASE 
+	WHEN department IN ("IT", "Data", "Engineering") THEN "Technical"
+    WHEN department IN ("Sales", "Marketing", "Finance") THEN "Business"
+    ELSE "Other"
+END AS Department_type,
+CASE 
+	WHEN salary >= 100000 THEN "High"
+    WHEN salary >= 70000 THEN "Medium"
+    ELSE "Low"
+END AS Salary_Level
+FROM employees;
+
+SELECT order_id,
+	   amount,
+       status,
+CASE 
+	WHEN status = 'Delivered' AND amount >= 10000 THEN 'Very High'
+    WHEN status = 'Delivered' AND amount < 10000 THEN 'High'
+    WHEN status = 'Shipped' THEN 'Medium'
+    WHEN status = 'Pending' THEN 'Low'
+    WHEN status = 'Cancelled' THEN 'Cancelled'
+	ELSE 'Other'
+END AS Order_Priority
+FROM orders;
