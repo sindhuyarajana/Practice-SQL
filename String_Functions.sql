@@ -33,3 +33,7 @@ INSERT INTO employees VALUES
 SELECT employee_id,
 	   TRIM(first_name) AS cleaned_first_name
 FROM employees;
+
+#full_name
+SELECT LOWER(CONCAT(TRIM(first_name), " ", TRIM(last_name))) AS full_name
+FROM employees;
