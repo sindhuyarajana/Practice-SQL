@@ -37,3 +37,33 @@ FROM employees;
 #full_name
 SELECT LOWER(CONCAT(TRIM(first_name), " ", TRIM(last_name))) AS full_name
 FROM employees;
+
+#Uppercase email
+SELECT UPPER(email) 
+FROM employees;
+
+#email username
+SELECT LOWER(email),
+	   LOWER(SUBSTRING_INDEX(email, "@", 1)) AS email_username
+FROM employees;
+
+#email domain
+SELECT email,
+       SUBSTRING_INDEX(email, "@", -1) AS email_domain
+FROM employees;
+
+#Name Length
+SELECT employee_id,
+	   first_name,
+       LENGTH(TRIM(first_name)) AS name_length
+FROM employees;
+
+# First 3 characters
+SELECT LEFT(city, 3) AS leftstring
+FROM employees;
+
+# last 3 characters
+SELECT employee_id,
+       city,
+       RIGHT(city, 3) AS city_code
+FROM employees;
