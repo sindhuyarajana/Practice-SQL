@@ -185,6 +185,7 @@ CASE
 END AS Salary_Level
 FROM employees;
 
+#"in SQL CASE WHEN using multiple conditions in single WHEN"
 SELECT order_id,
 	   amount,
        status,
@@ -196,4 +197,49 @@ CASE
     WHEN status = 'Cancelled' THEN 'Cancelled'
 	ELSE 'Other'
 END AS Order_Priority
+FROM orders;
+
+
+SELECT student_name,
+	   marks,
+       attendance_percent,
+CASE 
+	WHEN marks >= 80 AND attendance_percent >= 90 THEN 'Excellent'
+	WHEN marks >= 70 AND attendance_percent >= 75 THEN 'Good'
+	WHEN marks >= 50 AND attendance_percent >= 70 THEN 'Average'
+    ELSE 'Needs Improvement'
+END AS Performance
+FROM students;
+
+
+SELECT
+    COUNT(*) AS total_orders,
+
+    SUM(CASE
+        WHEN status = 'Delivered' THEN 1
+        ELSE 0
+    END) AS delivered_orders,
+
+    SUM(CASE
+        WHEN status = 'Pending' THEN 1
+        ELSE 0
+    END) AS pending_orders,
+
+    SUM(CASE
+        WHEN status = 'Shipped' THEN 1
+        ELSE 0
+    END) AS shipped_orders,
+
+    SUM(CASE
+        WHEN status = 'Cancelled' THEN 1
+        ELSE 0
+    END) AS cancelled_orders,
+
+    SUM(CASE
+        WHEN status = 'Delivered' THEN amount
+        ELSE 0
+    END) AS delivered_amount,
+
+    SUM(amount) AS total_amount
+
 FROM orders;
