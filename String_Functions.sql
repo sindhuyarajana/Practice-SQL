@@ -100,3 +100,16 @@ SELECT employee_id,
        INSTR(email, "@") AS position_of_at
 FROM employees;
 
+#Creating a standardized email from the employees
+SELECT 
+    employee_id,
+    first_name,
+    last_name,
+    CONCAT(
+        LOWER(TRIM(first_name)),
+        '.',
+        LOWER(TRIM(last_name)),
+        '@company.com'
+    ) AS professional_email
+FROM employees;
+
