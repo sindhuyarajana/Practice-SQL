@@ -67,3 +67,13 @@ SELECT employee_id,
        city,
        RIGHT(city, 3) AS city_code
 FROM employees;
+
+#replacing email provider
+SELECT email,
+	   CASE 
+			WHEN LOWER(email) LIKE '%@gmail.com' THEN REPLACE(LOWER(email), '@gmail.com', '@company.com')
+            WHEN LOWER(email) LIKE '%@YAHOO.COM' THEN REPLACE(LOWER(email), '@YAHOO.COM', '@company.com')
+            WHEN LOWER(email) LIKE '%@outlook.com' THEN REPLACE(LOWER(email), '@outlook.com', '@company.com')
+		END AS new_email
+FROM employees;
+
