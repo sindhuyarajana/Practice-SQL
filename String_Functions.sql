@@ -77,3 +77,26 @@ SELECT email,
 		END AS new_email
 FROM employees;
 
+SELECT 
+    CONCAT(
+        LOWER(TRIM(first_name)),
+        LOWER(SUBSTRING(TRIM(last_name), 1, 1))
+    ) AS username
+FROM employees;
+
+#standardized name
+SELECT CONCAT(
+			UPPER(TRIM(first_name)),
+			" ",
+            UPPER(TRIM(last_name))
+	)AS new_name
+FROM employees;
+
+SELECT SUBSTRING_INDEX(job_title, " ", -1) AS job_first_word FROM employees;
+
+#finding position of a substring using INSTR() 
+SELECT employee_id,
+	   email,
+       INSTR(email, "@") AS position_of_at
+FROM employees;
+
