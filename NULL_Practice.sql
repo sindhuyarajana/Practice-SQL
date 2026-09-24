@@ -42,3 +42,39 @@ SELECT
     bonus,
     (bonus * 100.0) / NULLIF(salary, 0) AS bonus_percentage
 FROM employees;
+
+# IF NULL
+SELECT employee_name,
+       manager_id,
+       CASE 
+           WHEN manager_id IS NULL THEN 'No Manager'
+           ELSE 'Has Manager'
+           END AS manager_status
+FROM employees;
+
+# COALESCE 
+SELECT employee_name,
+       department,
+       COALESCE(primary_manager_id, backup_manager_id, 'Unassigned') AS contact_manager
+FROM employees;
+
+#null aggregation
+SELECT 
+    department,
+    COUNT(employee_id) AS number_of_employees,
+    COALESCE(SUM(bonus), 0) AS total_bonus,
+    AVG(bonus) AS average_bonus
+FROM employees
+GROUP BY department;
+
+SELECT 
+    employee_name,
+    salary,
+    bonus,
+    CASE
+        WHEN bonus IS NULL THEN 'No Bonus'
+        WHEN bonus >= 15000 THEN 'High Bonus'
+        WHEN bonus >= 5000 THEN 'Medium Bonus'
+        WHEN bonus < 5000 THEN 'Low Bonus'
+    END AS bonus_category
+FROM employees;
