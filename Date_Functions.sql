@@ -62,3 +62,10 @@ SELECT employee_name,
 	   joining_date,
        QUARTER(joining_date) AS joining_quarter
 FROM employees;
+
+#USING EXTRACT()
+SELECT employee_name,
+       joining_date,
+       EXTRACT(YEAR FROM joining_date) AS joining_year,
+       EXTRACT(MONTH FROM joining_date) AS joining_month
+FROM employees;
