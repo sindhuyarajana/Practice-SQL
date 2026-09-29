@@ -37,3 +37,9 @@ SELECT employee_name,
 	   joining_date,
        DAY(joining_date) AS joining_day_number
 FROM employees;
+
+#MONTHNAME()
+SELECT employee_name,
+	   joining_date,
+       MONTHNAME(joining_date) AS joining_month_name
+FROM employees;
