@@ -25,3 +25,9 @@ SELECT employee_name,
 	   joining_date,
        YEAR(joining_date) AS joining_year
 FROM employees;
+
+#USING MONTH()
+SELECT employee_name,
+	    joining_date,
+        MONTH(joining_date) AS joining_month_number
+FROM employees;
