@@ -69,3 +69,9 @@ SELECT employee_name,
        EXTRACT(YEAR FROM joining_date) AS joining_year,
        EXTRACT(MONTH FROM joining_date) AS joining_month
 FROM employees;
+
+#USING DATEDIFF()
+SELECT employee_name,
+       joining_date,
+       DATEDIFF(CURDATE(), joining_date) AS days_employed
+FROM employees;
