@@ -49,3 +49,16 @@ SELECT employee_name,
 	   joining_date,
        DAYNAME(joining_date) AS joining_weekday_name
 FROM employees;
+
+#USING SQL YEAR() + MONTH()
+SELECT employee_name,
+	   joining_date,
+       YEAR(joining_date) AS joining_year,
+       MONTH(joining_date) AS joining_month_number
+FROM employees;
+
+#USING QUARTER()
+SELECT employee_name,
+	   joining_date,
+       QUARTER(joining_date) AS joining_quarter
+FROM employees;
