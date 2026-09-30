@@ -75,3 +75,10 @@ SELECT employee_name,
        joining_date,
        DATEDIFF(CURDATE(), joining_date) AS days_employed
 FROM employees;
+
+#USING TIMESTAMPDIFF() 
+SELECT employee_name,
+	   joining_date,
+       TIMESTAMPDIFF(YEAR, joining_date, CURDATE())
+FROM employees;
+
