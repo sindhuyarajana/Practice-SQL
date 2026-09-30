@@ -98,3 +98,17 @@ SELECT employee_name,
 	   joining_date,
        DATE_SUB(joining_date, INTERVAL 6 MONTH) AS date_before_6months
 FROM employees;
+
+#Joining year filter
+SELECT employee_name,
+       department,
+       joining_date,
+       YEAR(joining_date) AS joining_year
+FROM employees
+WHERE YEAR(joining_date) >= 2021;
+
+#date  formatting
+SELECT employee_name,
+       joining_date,
+       DATE_FORMAT(joining_date, '%M %d, %Y') AS formatted_joining_date
+FROM employees;
