@@ -92,3 +92,9 @@ SELECT employee_name,
 	   joining_date,
        DATE_ADD(joining_date, INTERVAL 1 YEAR) AS date_after_one_year
 FROM employees;
+
+#USING DATE_SUB()
+SELECT employee_name,
+	   joining_date,
+       DATE_SUB(joining_date, INTERVAL 6 MONTH) AS date_before_6months
+FROM employees;
