@@ -82,3 +82,7 @@ SELECT employee_name,
        TIMESTAMPDIFF(YEAR, joining_date, CURDATE())
 FROM employees;
 
+SELECT employee_name,
+	   joining_date,
+       TIMESTAMPDIFF(MONTH, joining_date, CURDATE()) AS complete_months
+FROM employees;
