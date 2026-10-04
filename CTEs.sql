@@ -95,3 +95,19 @@ SELECT
       employee_count
 FROM department_count
 WHERE employee_count > 1;
+
+#TWO CTEs
+WITH department_salary AS(
+	 SELECT department,
+		    AVG(salary) AS avg_salary
+	FROM employees
+    GROUP BY department
+), 
+high_salary_department AS(
+	 SELECT department,
+			avg_salary
+	 FROM department_salary
+     WHERE avg_salary > 80000
+)
+SELECT *
+FROM high_salary_department;
