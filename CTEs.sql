@@ -69,3 +69,16 @@ SELECT
 	department,
     avg_salary
 FROM department_salary;
+
+#Filter the CTE result
+WITH department_salary AS(
+	SELECT department,
+		   AVG(salary) AS avg_salary
+	FROM employees
+    GROUP BY department
+)
+SELECT 
+	department,
+    avg_salary
+FROM department_salary
+WHERE avg_salary > 80000;
