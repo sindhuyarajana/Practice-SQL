@@ -82,3 +82,16 @@ SELECT
     avg_salary
 FROM department_salary
 WHERE avg_salary > 80000;
+
+#COUNT employees
+WITH department_count AS(
+	 SELECT department,
+			COUNT(employee_id) AS employee_count
+	 FROM employees
+     GROUP BY department
+)
+SELECT 
+	  department,
+      employee_count
+FROM department_count
+WHERE employee_count > 1;
