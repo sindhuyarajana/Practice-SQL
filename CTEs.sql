@@ -45,3 +45,15 @@ WITH it_employees AS (
 )
 SELECT *
 FROM it_employees;
+
+WITH employee_salary AS(
+	 SELECT employee_name,
+			salary,
+            salary * 1.10 AS new_salary
+	FROM employees
+)
+SELECT 
+		employee_name,
+		salary,
+        new_salary
+FROM employee_salary;
