@@ -37,3 +37,11 @@ WITH high_salary AS (
 SELECT employee_name,
        salary
 FROM high_salary;
+
+WITH it_employees AS (
+	SELECT *
+    FROM employees
+    WHERE department = 'IT'
+)
+SELECT *
+FROM it_employees;
