@@ -57,3 +57,15 @@ SELECT
 		salary,
         new_salary
 FROM employee_salary;
+
+#Average salary
+WITH department_salary AS(
+	 SELECT department,
+			AVG(salary) AS avg_salary
+	FROM employees
+    GROUP BY department
+)
+SELECT 
+	department,
+    avg_salary
+FROM department_salary;
