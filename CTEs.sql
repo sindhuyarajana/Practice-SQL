@@ -111,3 +111,21 @@ high_salary_department AS(
 )
 SELECT *
 FROM high_salary_department;
+
+#Two_Step_Employee_Analysis
+WITH high_salary_employees AS(
+	 SELECT department,
+			employee_id,
+			salary
+	 FROM employees
+     WHERE salary > 70000
+),
+number_of_employees AS(
+	SELECT department,
+		   COUNT(employee_id) AS employee_count
+	FROM high_salary_employees
+    GROUP BY department
+)
+SELECT department,
+		employee_count
+FROM number_of_employees;
