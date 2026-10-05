@@ -148,3 +148,21 @@ SELECT
     avg_salary
 FROM department_salary
 ORDER BY avg_salary DESC;
+
+#above department average
+WITH department_avg AS (
+    SELECT
+        department,
+        AVG(salary) AS avg_salary
+    FROM employees
+    GROUP BY department
+)
+SELECT
+    e.employee_name,
+    e.department,
+    e.salary,
+    d.avg_salary
+FROM employees e
+JOIN department_avg d
+    ON e.department = d.department
+WHERE e.salary > d.avg_salary;
