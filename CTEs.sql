@@ -129,3 +129,22 @@ number_of_employees AS(
 SELECT department,
 		employee_count
 FROM number_of_employees;
+
+#Two step Salary Analysis
+WITH average_salary AS(
+	SELECT department,
+			AVG(salary) AS avg_salary
+	FROM employees
+    GROUP BY department
+),
+department_salary AS (
+	SELECT department,
+			avg_salary
+	FROM average_salary
+    WHERE avg_salary > 70000
+)
+SELECT
+	department,
+    avg_salary
+FROM department_salary
+ORDER BY avg_salary DESC;
