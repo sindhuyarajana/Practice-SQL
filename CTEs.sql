@@ -191,3 +191,15 @@ SELECT department,
 		avg_salary
 FROM highest_average_salary
 ORDER BY avg_salary DESC LIMIT 1;
+
+#Employee Count + Average Salary
+WITH for_each_department AS(
+	SELECT department,
+			COUNT(employee_id) AS employee_count,
+            AVG(salary) AS avg_salary
+	FROM employees
+    GROUP BY department
+)
+SELECT *
+FROM for_each_department
+WHERE employee_count > 1 AND avg_salary > 70000;
