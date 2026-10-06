@@ -179,3 +179,15 @@ SELECT
 FROM employees e
 CROSS JOIN overall_average a
 WHERE e.salary > a.avg_salary;
+
+#Department With Highest Average Salary
+WITH highest_average_salary AS(
+	SELECT department,
+			AVG(salary) as avg_salary
+	FROM employees
+    GROUP BY department
+)
+SELECT department,
+		avg_salary
+FROM highest_average_salary
+ORDER BY avg_salary DESC LIMIT 1;
