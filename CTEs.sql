@@ -166,3 +166,16 @@ FROM employees e
 JOIN department_avg d
     ON e.department = d.department
 WHERE e.salary > d.avg_salary;
+
+#salary above overall average
+WITH overall_average AS (
+    SELECT
+        AVG(salary) AS avg_salary
+    FROM employees
+)
+SELECT
+    e.employee_name,
+    e.salary
+FROM employees e
+CROSS JOIN overall_average a
+WHERE e.salary > a.avg_salary;
