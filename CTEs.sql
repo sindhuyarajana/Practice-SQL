@@ -203,3 +203,19 @@ WITH for_each_department AS(
 SELECT *
 FROM for_each_department
 WHERE employee_count > 1 AND avg_salary > 70000;
+
+#Highest Paid Employee in Each Department
+WITH highest_paid AS(
+	 SELECT department,
+            MAX(salary) AS max_salary
+	FROM employees
+    GROUP BY department
+)
+SELECT 
+	e.employee_name,
+    e.department,
+    e.salary
+FROM employees e
+JOIN highest_paid h
+ON e.department = h.department AND
+	e.salary = h.max_salary;
