@@ -219,3 +219,15 @@ FROM employees e
 JOIN highest_paid h
 ON e.department = h.department AND
 	e.salary = h.max_salary;
+
+#Departments With No Low-Salary Employees
+WITH department_salary AS(
+	SELECT department,
+		   MIN(salary) AS minimum_salary
+	FROM employees
+    GROUP BY department
+)
+SELECT department,
+		minimum_salary
+FROM department_salary
+WHERE minimum_salary > 60000;
