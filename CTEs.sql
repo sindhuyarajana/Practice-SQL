@@ -231,3 +231,19 @@ SELECT department,
 		minimum_salary
 FROM department_salary
 WHERE minimum_salary > 60000;
+
+#salary ranking by department
+WITH department_average AS(
+	SELECT department,
+			AVG(salary) AS avg_salary
+	FROM employees
+    GROUP BY department
+)
+SELECT e.employee_name,
+		e.department,
+        e.salary,
+        d.avg_salary
+FROM employees e
+JOIN department_average d 
+ON e.department = d.department
+WHERE e.salary >= d.avg_salary * 1.10;
