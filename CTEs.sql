@@ -247,3 +247,21 @@ FROM employees e
 JOIN department_average d 
 ON e.department = d.department
 WHERE e.salary >= d.avg_salary * 1.10;
+
+#department salary difference
+WITH department_avg AS (
+    SELECT
+        department,
+        AVG(salary) AS avg_salary
+    FROM employees
+    GROUP BY department
+)
+SELECT
+    e.employee_name,
+    e.department,
+    e.salary,
+    d.avg_salary,
+    e.salary - d.avg_salary AS salary_difference
+FROM employees e
+JOIN department_avg d
+    ON e.department = d.department;
