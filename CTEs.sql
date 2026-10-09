@@ -265,3 +265,25 @@ SELECT
 FROM employees e
 JOIN department_avg d
     ON e.department = d.department;
+
+#TWO-level Filtering
+WITH department_average AS(
+	  SELECT department,
+			 AVG(salary) AS avg_salary
+	  FROM employees
+      GROUP BY department
+), average_salary AS (
+		SELECT department,
+			   avg_salary
+		FROM department_average
+        WHERE avg_salary > 70000
+)
+SELECT e.employee_name,
+	   e.department,
+       e.salary,
+       a.avg_salary
+FROM employees e
+JOIN average_salary a 
+ON e.department = a.department
+WHERE e.salary > 80000;
+	
