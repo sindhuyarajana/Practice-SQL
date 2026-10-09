@@ -286,4 +286,26 @@ FROM employees e
 JOIN average_salary a 
 ON e.department = a.department
 WHERE e.salary > 80000;
-	
+
+#Find second highest salary in each department using CTEs.
+WITH department_salary AS (
+    SELECT
+        department,
+        MAX(salary) AS highest_salary
+    FROM employees
+    GROUP BY department
+),
+second_salary AS (
+    SELECT
+        e.department,
+        MAX(e.salary) AS second_highest_salary
+    FROM employees e
+    JOIN department_salary d
+        ON e.department = d.department
+    WHERE e.salary < d.highest_salary
+    GROUP BY e.department
+)
+SELECT
+    department,
+    second_highest_salary
+FROM second_salary;
