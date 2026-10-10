@@ -309,3 +309,23 @@ SELECT
     department,
     second_highest_salary
 FROM second_salary;
+
+WITH department_stats AS (
+    SELECT
+        department,
+        AVG(salary) AS avg_salary,
+        COUNT(employee_id) AS employee_count
+    FROM employees
+    GROUP BY department
+    HAVING COUNT(employee_id) > 1
+)
+SELECT
+    e.employee_name,
+    e.department,
+    e.salary,
+    d.avg_salary,
+    d.employee_count
+FROM employees e
+JOIN department_stats d
+    ON e.department = d.department
+WHERE e.salary > d.avg_salary;
