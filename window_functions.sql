@@ -62,6 +62,7 @@ VALUES
 
 SELECT * FROM monthly_sales;
 
+#LEVEL 1(BASICS OF WINDOW FUNCTIONS)
 #ROW_NUMBER()
 SELECT employee_name,
 	   department,
@@ -69,4 +70,40 @@ SELECT employee_name,
        ROW_NUMBER() OVER(
        ORDER BY salary DESC
 	)AS row_num
+FROM employees;
+
+#RANK()
+SELECT employee_name,
+	   department,
+       salary,
+       RANK() OVER(
+       ORDER BY salary DESC
+	)AS salary_rank
+FROM employees;
+
+#DENSE_RANK()
+SELECT employee_name,
+	   department,
+       salary,
+       DENSE_RANK() OVER(
+       ORDER BY salary DESC
+       )AS salary_rank
+FROM employees;
+
+#PARTITION BY with ROW_NUMBER()
+SELECT employee_name,
+       department,
+       salary,
+       ROW_NUMBER() OVER(
+       PARTITION BY department
+       ORDER BY salary DESC
+       ) AS dept_row_num
+FROM employees;
+
+#PERCENT RANK()
+SELECT employee_name,
+	   salary,
+       PERCENT_RANK() OVER(
+       ORDER BY salary DESC
+       )AS percentrank
 FROM employees;
