@@ -107,3 +107,65 @@ SELECT employee_name,
        ORDER BY salary DESC
        )AS percentrank
 FROM employees;
+
+#LEVEL 2 AGGREGATE WINDOWS
+#DEPARTMENT AVERAGE
+SELECT employee_name,
+	   department,
+       salary,
+       AVG(salary) OVER(
+       PARTITION BY department
+       ) AS department_avg
+FROM employees;
+
+#DEPARTMENT TOTAL
+SELECT employee_name,
+	   department,
+       salary,
+       SUM(salary) OVER(
+       PARTITION BY department
+       ) AS department_total
+FROM employees;
+
+#COMPARE to AVERAGE
+SELECT employee_name,
+	   department,
+       salary,
+       AVG(salary) OVER(
+       PARTITION BY department
+       ) AS department_avg,
+       salary - AVG(salary) OVER(
+			PARTITION BY department
+		) AS salary_difference
+FROM employees;
+
+#RUNNING TOTAL
+SELECT employee_id,
+	   sale_month,
+       sales_amount,
+       SUM(sales_amount) OVER(
+       PARTITION BY employee_id
+       ORDER BY sale_month
+       )AS running_total
+FROM monthly_sales;
+
+#ROW COMPARISONS
+#LAG()
+SELECT employee_id,
+	   sale_month,
+       sales_amount,
+       LAG(sales_amount) OVER(
+       PARTITION BY employee_id
+       ORDER BY sale_month
+       )AS previous_month_sales
+FROM monthly_sales;
+
+#LEAD()
+SELECT employee_id,
+	   sale_month,
+       sales_amount,
+       LEAD(sales_amount) OVER(
+       PARTITION BY employee_id
+       ORDER BY sale_month
+       )AS next_month_sales
+FROM monthly_sales;
