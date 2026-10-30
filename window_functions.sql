@@ -169,3 +169,92 @@ SELECT employee_id,
        ORDER BY sale_month
        )AS next_month_sales
 FROM monthly_sales;
+
+#MONTH-ON-MONTH CHANGE
+SELECT employee_id,
+	   sale_month,
+       sales_amount,
+       LAG(sales_amount) OVER(
+       PARTITION BY employee_id
+       ORDER BY sale_month
+       )AS previous_month_sales,
+       sales_amount - LAG(sales_amount) OVER(
+       PARTITION BY employee_id
+       ORDER BY sale_month
+       )AS monthly_sales_change
+FROM monthly_sales;
+
+#TOP 3 HIGHEST PAID EMPLOYEES IN EACH DEPARTMENT
+WITH highest_paid AS(
+	 SELECT employee_name,
+		    department,
+            salary,
+            DENSE_RANK() OVER(
+            PARTITION BY department
+            ORDER BY salary DESC
+            ) AS top_rank
+	FROM employees
+    )
+SELECT * 
+FROM highest_paid
+WHERE top_rank <= 3;
+
+#FINDING THE SECOND HIGHEST DISTINCT SALARY
+WITH highest_paid AS (
+    SELECT
+        employee_name,
+        department,
+        salary,
+        DENSE_RANK() OVER (
+            ORDER BY salary DESC
+        ) AS salary_rank
+    FROM employees
+)
+SELECT *
+FROM highest_paid
+WHERE salary_rank = 2;
+
+#Employees earning above their department average
+WITH dept_average AS(
+	SELECT employee_name,
+		   department,
+           salary,
+           AVG(salary) OVER(
+           PARTITION BY department
+           )AS dept_avg
+	FROM employees
+)
+SELECT *
+FROM dept_average
+WHERE salary > dept_avg;
+
+#DEPARTMENTS HIGHEST AND LOWEST SALARY
+SELECT 
+	employee_name,
+    department,
+    salary,
+    MAX(salary) OVER(
+    PARTITION BY department
+    )AS highest_dept_salary,
+    MIN(salary) OVER(
+    PARTITION BY department
+    )AS lowest_dept_salary
+FROM employees;
+
+#RANKING EMPLOYEES BASED ON THEIR TOTAL SALES
+WITH employee_sales AS(
+	SELECT
+		employee_id,
+        SUM(sales_amount) AS total_sales
+	FROM monthly_sales
+    GROUP BY employee_id
+)
+SELECT 
+	employee_id,
+    total_sales,
+    DENSE_RANK() OVER(
+		ORDER BY total_sales DESC
+	)AS sales_rank
+FROM employee_sales;
+	   
+            
