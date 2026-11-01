@@ -168,3 +168,33 @@ GROUP BY
     p.product_name,
     p.category
 ORDER BY total_quantity DESC LIMIT 3;
+
+#8
+WITH customer_spending AS (
+    SELECT
+        c.customer_id,
+        c.customer_name,
+        c.city,
+        SUM(oi.quantity * oi.unit_price) AS total_spending
+    FROM customers c
+    INNER JOIN orders o
+        ON c.customer_id = o.customer_id
+    INNER JOIN order_items oi
+        ON o.order_id = oi.order_id
+    WHERE o.status = 'Delivered'
+    GROUP BY
+        c.customer_id,
+        c.customer_name,
+        c.city
+)
+
+SELECT
+    customer_name,
+    city,
+    total_spending,
+    DENSE_RANK() OVER (
+        PARTITION BY city
+        ORDER BY total_spending DESC
+    ) AS spending_rank
+FROM customer_spending
+ORDER BY city, spending_rank;
