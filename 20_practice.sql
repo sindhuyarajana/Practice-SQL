@@ -276,3 +276,93 @@ INNER JOIN order_items oi
 GROUP BY DATE_FORMAT(o.order_date, '%Y - %M')
 ORDER BY total_revenue DESC;
 
+#10
+WITH customer_spending AS (
+    SELECT
+        c.customer_id,
+        c.customer_name,
+        SUM(
+            oi.quantity * oi.unit_price *
+            (1 - oi.discount_pct / 100)
+        ) AS total_spending
+    FROM customers c
+    INNER JOIN orders o
+        ON c.customer_id = o.customer_id
+    INNER JOIN order_items oi
+        ON o.order_id = oi.order_id
+    GROUP BY
+        c.customer_id,
+        c.customer_name
+)
+
+SELECT
+    customer_id,
+    customer_name,
+    total_spending
+FROM customer_spending
+WHERE total_spending > (
+    SELECT AVG(total_spending)
+    FROM customer_spending
+)
+ORDER BY total_spending DESC;
+
+#11
+WITH product_revenue AS(
+	SELECT p.product_id,
+		   p.product_name,
+           p.category,
+           SUM(oi.quantity * oi.unit_price  *(1 - oi.discount_pct / 100)) AS total_revenue
+	FROM products p
+	INNER JOIN order_items oi
+    ON p.product_id = oi.product_id
+    INNER JOIN orders o
+    ON oi.order_id = o.order_id
+    GROUP BY p.product_id,
+			 p.product_name,
+             p.category
+	),
+    ranked_products AS(
+		SELECT product_id,
+			   product_name,
+               category,
+               total_revenue,
+               DENSE_RANK() OVER(
+               PARTITION BY category
+               ORDER BY total_revenue DESC)AS product_rank
+		FROM product_revenue
+	)
+SELECT category,
+		product_id,
+		product_name,
+		total_revenue
+FROM ranked_products
+WHERE product_rank = 1
+ORDER BY category;
+		   
+#12         
+SELECT
+    c.customer_id,
+    c.customer_name,
+    MIN(o.order_date) AS first_order_date,
+    MAX(o.order_date) AS most_recent_order_date
+FROM customers c
+INNER JOIN orders o
+    ON c.customer_id = o.customer_id
+GROUP BY
+    c.customer_id,
+    c.customer_name
+ORDER BY c.customer_id;
+
+#13
+SELECT
+	c.customer_id,
+    c.customer_name,
+    COUNT(DISTINCT DATE_FORMAT(o.order_date, '%Y - %m')) AS placed_orders
+FROM customers c
+INNER JOIN orders o
+	ON c.customer_id = o.customer_id
+GROUP BY 
+	c.customer_id,
+    c.customer_name
+HAVING placed_orders >= 3
+ORDER BY c.customer_id;
