@@ -1,4 +1,4 @@
-#Calculate product-level profit and rank products within each category.
+# 14 Calculate product-level profit and rank products within each category.
 WITH product_profit AS (
 	SELECT p.product_id,
 		   p.product_name,
