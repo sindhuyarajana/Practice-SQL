@@ -404,3 +404,30 @@ SELECT
     product_rank
 FROM ranked_products
 ORDER BY category, product_rank;
+
+#15
+WITH monthly_revenue AS(
+	SELECT DATE_FORMAT(o.order_date, '%Y-%m') AS month,
+		SUM(oi.quantity * oi.unit_price *(1-oi.discount_pct / 100))AS total_revenue
+	FROM orders o
+    INNER JOIN order_items oi
+    ON o.order_id = oi.order_id
+    WHERE o.order_status = 'Delivered'
+    GROUP BY DATE_FORMAT(o.order_date, '%Y-%m')
+), 
+revenue_comparison AS(
+	SELECT 
+		month,
+        total_revenue,
+        LAG(total_revenue) OVER(
+			ORDER BY month) AS previous_month_revenue
+	FROM monthly_revenue
+)
+SELECT 
+	month,
+    total_revenue,
+    previous_month_revenue,
+    ROUND(
+			(total_revenue - previous_month_revenue)/ NULLIF (previous_month_revenue, 0)* 100, 2) AS mom_growth_percentage
+FROM revenue_comparison
+ORDER BY month;
