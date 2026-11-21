@@ -62,3 +62,43 @@ SELECT
 			(total_revenue - previous_month_revenue)/ NULLIF (previous_month_revenue, 0)* 100, 2) AS mom_growth_percentage
 FROM revenue_comparison
 ORDER BY month;
+
+#identify repeat customer who placed another order within 30 days of their first order
+WITH customer_orders AS (
+    SELECT
+        customer_id,
+        order_id,
+        order_date,
+        LEAD(order_date) OVER (
+            PARTITION BY customer_id
+            ORDER BY order_date
+        ) AS next_order_date
+    FROM orders
+),
+
+repeat_orders AS (
+    SELECT
+        customer_id,
+        order_id,
+        order_date,
+        next_order_date,
+        DATEDIFF(next_order_date, order_date) AS days_between_orders
+    FROM customer_orders
+)
+
+SELECT
+    customer_id,
+    order_id,
+    order_date,
+    next_order_date,
+    days_between_orders
+FROM repeat_orders
+WHERE days_between_orders BETWEEN 1 AND 30
+ORDER BY customer_id, order_date;
+
+SELECT
+    customer_id,
+    COUNT(*) AS total_orders
+FROM orders
+GROUP BY customer_id
+ORDER BY customer_id;
